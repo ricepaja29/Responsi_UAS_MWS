@@ -1,0 +1,53 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin" // Flutter Gradle Plugin
+}
+
+android {
+    namespace = "com.example.sewamotorapp" // Pastikan sesuai dengan applicationId
+    compileSdk = 33 // Pastikan sesuai dengan compileSdkVersion proyek Flutter Anda
+
+    defaultConfig {
+        applicationId = "com.example.sewamotorapp" // Application ID unik
+        minSdk = 21 // Pastikan sesuai dengan proyek Flutter Anda
+        targetSdk = 33
+        versionCode = 1
+        versionName = "1.0"
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release // Konfigurasi signing untuk release
+            minifyEnabled true // Aktifkan ProGuard untuk release
+            shrinkResources true // Matikan shrink resources untuk release builds
+        }
+    }
+
+    signingConfigs {
+        release {
+            // Ganti path ke keystore dan informasi kredensial dengan yang sesuai
+            storeFile file("path/to/keystore")
+            storePassword "your_keystore_password"
+            keyAlias "your_key_alias"
+            keyPassword "your_key_password"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    implementation "androidx.security:security-crypto:1.1.0-alpha06" // Diperlukan oleh flutter_secure_storage
+}
+
+flutter {
+    source = "../.." // Lokasi kode Flutter, pastikan path ini sesuai dengan struktur proyek Anda
+}
